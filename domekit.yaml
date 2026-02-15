@@ -1,0 +1,31 @@
+app:
+  name: langchain-example
+
+policy:
+  network:
+    outbound: deny
+  tools:
+    allow: [sql_query, read_file, vector_search]
+  data:
+    sqlite:
+      allow: ["data/books.db"]
+    filesystem:
+      allow_read: ["data/"]
+      allow_write: []
+    vector:
+      allow: ["book-summaries"]
+
+models:
+  backend: ollama
+  default: llama3.1:8b
+
+embedding:
+  backend: ollama
+  model: nomic-embed-text
+
+vector_db:
+  backend: chroma
+  default_top_k: 5
+
+audit:
+  path: "audit.jsonl"
